@@ -29,10 +29,6 @@ For more details, read the full paper: [Insert Link to Paper]
 
 ```plaintext
 ├── data/                # Example datasets and input files
-├── models/              # Pre-configured SNL-SWAN numerical model files
-├── scripts/             # Python/Matlab scripts for optimization and analysis
+├── scripts/             # Python scripts for optimization and analysis
 │   ├── optimization/    # Genetic algorithm implementation
-│   ├── clustering/      # K-means clustering scripts
-│   └── visualization/   # Plotting and result analysis tools
-├── results/             # Sample outputs from the study
 └── README.md            # Repository documentation
