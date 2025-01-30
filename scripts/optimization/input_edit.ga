@@ -1,0 +1,84 @@
+############################################# Observations #######################################################
+# Before runnig the GA model must define the sea states providing:
+#   -sea states csv file with header ST,HS,TP,DIR,COUNT,SHARE
+#   -cluster data file with hearder at least Cluster,Hs
+#   -complete wave data before data filtering (no need for a specific header)
+# Must be in the same folder:
+#   -Algorithm code and support files  
+#       - Genetic_Algorithm.py , output_evaluation.py, pre_to_avg.py , run_swan_parallel.sh
+#   - Input files of SNL-SWAN
+#       - bottom, grid, snl_power, script to run swan
+#   - Wave data files 
+#       - sea states file , cluster_data_file, complete_dataset_file
+#       - sea_states_folder : must have a sea states file and the .swn files of background
+# Optional files:
+#   -Case of deploy area in a polygon
+#       -area_plot.pol
+#   - Case of need perform background 
+#       -background_file (.swn) replacing the boundary condition values to HSbs TPbs DIRbs
+#       -st_files_generator.py
+#   - Starting case (no initial generation)
+#       -Initial_population_and_run.py
+############################################# MODEL Inputs/outputs #################################################
+
+bottom_file = file_name
+
+grid_file = file_name
+
+swanrun_script = swanrun
+
+snl_power_file = Power.txt
+
+# Simulation Type = omp or mpi
+sim_type = omp
+#Number of single model cores (minimum = 1)
+sim_cores = number_of_cores_for_swan
+#Number of parallel model runs (minimum = 2)
+sim_parallel = number_of_parallel_swan_running
+
+
+############################################# Sea States and background ##############################
+
+complete_dataset = file_name.csv
+cluster_data = file_name.csv
+
+sea_states_folder = sea_states
+sea_states_file = file_name.csv
+
+
+
+############################################# Initial Population ######################################
+
+initial_pop_size = number_of_arrays_in_generation_000
+
+############################################ WEC farm ####################################################
+
+num_arrays = population_size
+num_wecs = array_size
+wec_length = obstacle_width
+min_dist = multiplier_of_wec_length_for_minimal_separation_distance_between_wecs
+
+single_WEC = power_absoption_of_one_wec
+
+# deploy_type can be sector or polygon
+deploy_type =  set_deploy_type
+deploy_area = area_plot.pol
+central_point = (latitude, longitude)
+sector_dist_min = radius_of_inner_arc_from_center_point
+sector_dist_max = radius_of_outter_arc_from_center_point
+start_angle = sector_starting_angle__from_center_point_in_Nautical_degrees
+end_angle = sector_endting_angle__from_center_point_in_Nautical_degrees
+
+
+############################################# GA Inputs #################################################
+
+max_generations = termination_criteria_for_maximum_generations
+tolerance = tolerance_to_non_changing_generations
+max_consecutive_stable_iterations = termination_criteria_for_non_changing_generations
+elite_size = slice_of_population_size_0_to_1
+crossover_rate = probability_of_crossover_0_to_1
+mutation_rate = probability_of_mutation_0_to_1
+
+# WLA parameters (shield = None or 0 to 1) (HRA = max or min)
+shield = shield_protection_variable(defaut=0.5)
+HRA_normalization = wave_reduction_objective
