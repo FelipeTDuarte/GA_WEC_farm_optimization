@@ -1,7 +1,7 @@
 ############################################# Observations #######################################################
 # Before runnig the GA model must define the sea states providing:
 #   -sea states csv file with header ST,HS,TP,DIR,COUNT,SHARE
-#   -cluster data file with hearder at least Cluster,Hs
+#   -cluster data file with header at least Cluster,Hs
 #   -complete wave data before data filtering (no need for a specific header)
 # Must be in the same folder:
 #   -Algorithm code and support files  
@@ -15,24 +15,31 @@
 #   -Case of deploy area in a polygon
 #       -area_plot.pol
 #   - Case of need perform background 
-#       -background_file (.swn) replacing the boundary condition values to HSbs TPbs DIRbs
+#       - create a swan input for background (.swn):
+#   	    -- replace the boundary condition values to HSbs TPbs DIRbs
+#           -- insert $******************************** WEC ARRAY ***************************** before obstacles
+#           -- interest area output (.mat)
+#               ---  FRAme 'sname' [xpfr] [ypfr] [alpfr] [xlenfr] [ylenfr] [mxfr] [myfr]
+#                    BLOCK 'sname' NOHEAD 'file_name.mat' LAY 3 HSIGN
 #       -st_files_generator.py
 #   - Starting case (no initial generation)
 #       -Initial_population_and_run.py
 ############################################# MODEL Inputs/outputs #################################################
 
 bottom_file = file_name
-
 grid_file = file_name
-
 swanrun_script = swanrun
-
 snl_power_file = Power.txt
+
+# interest area output 
+AOI_output = file_name.mat
 
 # Simulation Type = omp or mpi
 sim_type = omp
+
 #Number of single model cores (minimum = 1)
 sim_cores = number_of_cores_for_swan
+
 #Number of parallel model runs (minimum = 2)
 sim_parallel = number_of_parallel_swan_running
 
@@ -45,7 +52,7 @@ cluster_data = file_name.csv
 sea_states_folder = sea_states
 sea_states_file = file_name.csv
 
-
+background_file = file_name.swn
 
 ############################################# Initial Population ######################################
 
@@ -62,7 +69,7 @@ single_WEC = power_absoption_of_one_wec
 
 # deploy_type can be sector or polygon
 deploy_type =  set_deploy_type
-deploy_area = area_plot.pol
+deploy_area = file_name.pol
 central_point = (latitude, longitude)
 sector_dist_min = radius_of_inner_arc_from_center_point
 sector_dist_max = radius_of_outter_arc_from_center_point

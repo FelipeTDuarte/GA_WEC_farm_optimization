@@ -126,6 +126,9 @@ def read_config():
     return config
 
 ################ INPUTS ######################################
+# Call the function to read the configuration
+config = read_config()
+
 
 # Read WEC farm parameters
 num_arrays = int(config['num_arrays'])
@@ -163,7 +166,7 @@ array_list = []
 for array_number in range(num_arrays):
     if deploy_type == 'sector':
         #print('Deploy in a sector')
-        segments_UTM = create_array_sector(num_wecs, min_dist, wec_length, start_angle, end_angle, arc_center)
+        segments_UTM = create_array_sector(num_wecs, min_dist, wec_length, start_angle, end_angle, central_point)
         #print(segments_UTM)
         array_list.append(segments_UTM)
     elif deploy_type == 'polygon':

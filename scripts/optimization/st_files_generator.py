@@ -27,6 +27,8 @@ config = read_config()
 sim_type = config['sim_type']
 sim_parallel = config['sim_parallel']
 swanrun_script = config['swanrun_script']
+background_file = config['background_file']
+AOI_output = config['AOI_output']
 
 # Create sea states directory 
 output_dir = config['sea_states_folder']
@@ -48,7 +50,7 @@ for index, row in sea_states_df.iterrows():
     filename = os.path.join(output_dir, f'st{index:02d}.swn')
 
     # Read the original st.swn file
-    with open('base_st.swn', 'r') as original_file:
+    with open(background_file, 'r') as original_file:
         content = original_file.read()
 
     # Replace placeholders with sea state data
@@ -88,7 +90,7 @@ for swn_file in os.listdir('.'):
         subprocess.run(command)
 
         # Load the output .mat file
-        mat_file = scipy.io.loadmat('int_area.mat')
+        mat_file = scipy.io.loadmat(AOI_output)
 
         # Get the average of all values of the matrix in the .mat file
         hsig_key = next((key for key in mat_file.keys() if key.startswith("Hsig")), None)
